@@ -1,0 +1,67 @@
+<h1>My TABLE</h1>
+<div class="selects">
+    <select class="form-control m-1" #cat (change)="filterCategory(cat.value)">
+        <option value="0" selected>All Categories</option>
+        <option value="1">Category 1</option>
+        <option value="2">Category 2</option>
+        <option value="3">Category 3</option>
+    </select>
+    <select class="form-control m-1" #count (change)="getCountRows(count.value)">
+        <option disabled selected>Number rows</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+    </select>
+</div>
+<table class="table table-dark table-striped table-bordered m-2">
+    <thead>
+        <th>ID</th>
+        <th>Product</th>
+        <th>Price</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of showProducts()" 
+            [ngStyle]="{color: (red_500 && item.price >= 500) ? 'red' : 'white'}">
+            <td>{{item.id}}</td>
+            <td>{{item.product}}</td>
+            <td>
+                {{item.price}}
+                <button (click)="removeProduct(item.id)" 
+                        class="btn btn-secondary" 
+                        style="float: 'right'">
+                        Delete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="pagination">
+    <button class="m-1" *ngFor="let item of getBtnPag()" (click)="showPage(item)">{{item}}</button>
+</div>
+<form class="user-form">
+    <div class="form-group">
+      <label>Product</label>
+      <input type="text" class="form-control" #product>
+    </div>
+    <div class="form-group">
+      <label>Price</label>
+      <input type="text" class="form-control" #price>
+    </div>
+    <div>
+        <label>Category</label>
+        <select class="form-control" #selectedCategory>
+            <option disabled selected>Choose Category</option>
+            <option value="1">Category 1</option>
+            <option value="2">Category 2</option>
+            <option value="3">Category 3</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="addProduct(product.value, price.value, selectedCategory.value)">ADD PRODUCT</button>
+</form>
+<button class="btn btn-danger m-1" (click)="showProductList()">show more...</button>
+<button class="btn btn-secondary m-1" (click)="dischargePrice()">>>500</button>
